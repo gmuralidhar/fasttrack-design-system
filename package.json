@@ -1,0 +1,14 @@
+{
+  "name": "root",
+  "private": true,
+  "devDependencies": {
+    "lerna": "^3.22.1"
+  },
+  "scripts": {
+    "build": "npx lerna run build --stream",
+    "test": "npx lerna run test --stream",
+    "serve:angular": "npx lerna run serve --scope=angular-app --stream",
+    "serve:react": "npx lerna run start --scope=react-app --stream",
+    "serve:stencil": "npx lerna run start --scope=my-component-library --stream"
+  }
+}
