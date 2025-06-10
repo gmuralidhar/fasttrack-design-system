@@ -1,0 +1,14 @@
+node_modules
+
+# Stencil.js output
+packages/stencil-library/dist
+packages/stencil-library/www
+packages/stencil-library/loader
+packages/stencil-library/hydrate
+packages/stencil-library/.stencil
+
+# Angular proxy output
+packages/angular-workspace/projects/component-library/src/lib/stencil-generated
+
+# React proxy output
+packages/react-workspace/component-library/src/components/stencil-generated
