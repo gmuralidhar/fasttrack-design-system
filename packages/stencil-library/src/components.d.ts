@@ -6,56 +6,99 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
-    interface MyComponent {
+    interface MyButton {
         /**
-          * The first name
+          * Accessible label for the button
          */
-        "first": string;
+        "ariaLabel"?: string;
         /**
-          * The last name
+          * If true, the button is disabled
          */
-        "last": string;
+        "disabled": boolean;
         /**
-          * The middle name
+          * The size of the button
          */
-        "middle": string;
+        "size": 'small' | 'medium' | 'large';
+        /**
+          * The text to display on the button (if no slot is used)
+         */
+        "text": string;
+        /**
+          * The type of the button
+         */
+        "type": 'button' | 'submit' | 'reset';
+        /**
+          * The variant of the button (for styling)
+         */
+        "variant": 'primary' | 'secondary' | 'danger';
     }
 }
+export interface MyButtonCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLMyButtonElement;
+}
 declare global {
-    interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
+    interface HTMLMyButtonElementEventMap {
+        "buttonClick": MouseEvent;
     }
-    var HTMLMyComponentElement: {
-        prototype: HTMLMyComponentElement;
-        new (): HTMLMyComponentElement;
+    interface HTMLMyButtonElement extends Components.MyButton, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLMyButtonElementEventMap>(type: K, listener: (this: HTMLMyButtonElement, ev: MyButtonCustomEvent<HTMLMyButtonElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLMyButtonElementEventMap>(type: K, listener: (this: HTMLMyButtonElement, ev: MyButtonCustomEvent<HTMLMyButtonElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLMyButtonElement: {
+        prototype: HTMLMyButtonElement;
+        new (): HTMLMyButtonElement;
     };
     interface HTMLElementTagNameMap {
-        "my-component": HTMLMyComponentElement;
+        "my-button": HTMLMyButtonElement;
     }
 }
 declare namespace LocalJSX {
-    interface MyComponent {
+    interface MyButton {
         /**
-          * The first name
+          * Accessible label for the button
          */
-        "first"?: string;
+        "ariaLabel"?: string;
         /**
-          * The last name
+          * If true, the button is disabled
          */
-        "last"?: string;
+        "disabled"?: boolean;
         /**
-          * The middle name
+          * Emitted when the button is clicked
          */
-        "middle"?: string;
+        "onButtonClick"?: (event: MyButtonCustomEvent<MouseEvent>) => void;
+        /**
+          * The size of the button
+         */
+        "size"?: 'small' | 'medium' | 'large';
+        /**
+          * The text to display on the button (if no slot is used)
+         */
+        "text"?: string;
+        /**
+          * The type of the button
+         */
+        "type"?: 'button' | 'submit' | 'reset';
+        /**
+          * The variant of the button (for styling)
+         */
+        "variant"?: 'primary' | 'secondary' | 'danger';
     }
     interface IntrinsicElements {
-        "my-component": MyComponent;
+        "my-button": MyButton;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            "my-button": LocalJSX.MyButton & JSXBase.HTMLAttributes<HTMLMyButtonElement>;
         }
     }
 }
